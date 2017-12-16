@@ -1,0 +1,163 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.free.platform.base</groupId>
+    <artifactId>platform-base</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>platform-base-common</artifactId>
+  
+   <dependencies>
+  	<dependency>
+	    <groupId>com.free.platform.base</groupId>
+		<artifactId>platform-base-paginator</artifactId>
+		<version>${project.version}</version>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>javax.validation</groupId>
+		<artifactId>validation-api</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>fastjson</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	 
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	
+      <dependency>
+          <groupId>commons-beanutils</groupId>
+          <artifactId>commons-beanutils</artifactId>
+          <scope>provided</scope>
+      </dependency>
+	
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-log4j12</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	
+	<dependency>
+	  <groupId>ch.qos.logback</groupId>
+	  <artifactId>logback-classic</artifactId>
+	  <version>1.1.7</version>
+	  <scope>provided</scope>
+	</dependency>
+	
+	
+	<!-- 二维码 -->
+	<dependency>
+	  <groupId>com.google.zxing</groupId>
+	  <artifactId>javase</artifactId>
+	  <scope>provided</scope>
+	</dependency>
+	<!-- 加密 -->
+	<dependency>
+		<groupId>commons-codec</groupId>
+		<artifactId>commons-codec</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	
+	<!-- mybatis -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<scope>provided</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+		<scope>provided</scope>
+	</dependency>
+		
+	<dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>dubbo</artifactId>
+      <scope>provided</scope>
+      <exclusions>
+      	<exclusion>
+      		<artifactId>spring</artifactId>
+      		<groupId>org.springframework</groupId>
+      	</exclusion>
+      	<exclusion>
+      		<artifactId>netty</artifactId>
+      		<groupId>org.jboss.netty</groupId>
+      	</exclusion>
+      </exclusions>
+    </dependency>
+
+	<dependency>
+		<groupId>commons-net</groupId>
+		<artifactId>commons-net</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>commons-lang</groupId>
+		<artifactId>commons-lang</artifactId>
+		<scope>provided</scope>
+	</dependency>	
+	
+	<dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpclient</artifactId>
+		 <scope>provided</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpmime</artifactId>
+		<scope>provided</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>org.apache.zookeeper</groupId>
+		<artifactId>zookeeper</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	
+  </dependencies>
+  
+  <build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

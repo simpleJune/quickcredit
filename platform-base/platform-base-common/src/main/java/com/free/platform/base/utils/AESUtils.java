@@ -1,0 +1,131 @@
+package com.free.platform.base.utils;
+
+import java.nio.charset.Charset;
+import java.security.GeneralSecurityException;
+import java.security.SecureRandom;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.util.Assert;
+
+public class AESUtils {
+	public static Log logger = LogFactory.getLog(AESUtils.class);
+
+	private static Cipher init(int mode, byte[] keyData) throws GeneralSecurityException {
+			KeyGenerator kgen;
+            kgen = KeyGenerator.getInstance("AES");
+            SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+            random.setSeed(keyData);
+            kgen.init(128, random);
+            // 此 SecureRandom 创建的方式会导致加解密key不一致问题
+            /*kgen.init(128, new SecureRandom(keyData));*/
+            SecretKey secretKey = kgen.generateKey();
+            byte[] enCodeFormat = secretKey.getEncoded();
+            SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
+            Cipher cipher = Cipher.getInstance("AES");// 创建密码器
+            cipher.init(mode, key);// 初始化
+            return cipher;
+	}
+
+	/**
+	 * 加密
+	 * 
+	 * @param data
+	 *            需要加密的内容
+	 * @param key
+	 *            加密密码
+	 * @return
+	 * @throws BadPaddingException 
+	 * @throws IllegalBlockSizeException 
+	 */
+	public static byte[] encrypt(byte[] data, String key) throws GeneralSecurityException {
+		Assert.isTrue((data != null && data.length > 0), "data cannot be empty");
+		Cipher cipher = init(Cipher.ENCRYPT_MODE, key.getBytes(getCharset()));
+		byte[] encryptData = cipher.doFinal(data);
+		return encryptData;
+	}
+
+	/**
+	 * 加密字符串
+	 * 
+	 * @param content
+	 * @param key
+	 * @return
+	 * @throws BadPaddingException 
+	 * @throws IllegalBlockSizeException 
+	 */
+	public static byte[] encryptStr(String content, String key) throws GeneralSecurityException {
+		Assert.isTrue(org.apache.commons.lang.StringUtils.isNotEmpty(content), "content cannot be empty");
+		return encrypt(content.getBytes(getCharset()), key);
+	}
+	
+	/**
+	 * 加密字符串返回Base64字符串
+	 * @param content
+	 * @param key
+	 * @return
+	 * @throws BadPaddingException 
+	 * @throws IllegalBlockSizeException 
+	 */
+	public static String encryptBase64(String content, String key) throws GeneralSecurityException {
+		byte[] encryptData = encryptStr(content, key);
+		return Base64.encodeBase64String(encryptData);
+	}
+
+	/**
+	 * 解密
+	 * 
+	 * @param encryptData
+	 *            待解密内容
+	 * @param key
+	 *            解密密钥
+	 * @return
+	 * @throws BadPaddingException 
+	 * @throws IllegalBlockSizeException 
+	 */
+	public static byte[] decrypt(byte[] encryptData, String key) throws GeneralSecurityException {
+		Assert.isTrue(ArrayUtils.isNotEmpty(encryptData), "encryptData cannot be empty");
+		Cipher cipher = init(Cipher.DECRYPT_MODE, key.getBytes(getCharset()));
+		byte[] data = cipher.doFinal(encryptData);
+		return data;
+	}
+	
+	/**
+	 * 解密字符串
+	 * @param encryptData
+	 * @param key
+	 * @return
+	 * @throws BadPaddingException 
+	 * @throws IllegalBlockSizeException 
+	 */
+	public static String decryptStr(byte[] encryptData, String key) throws GeneralSecurityException {
+		byte[] data = decrypt(encryptData, key);
+		return new String(data, getCharset());
+	}
+	
+	/**
+	 * 解密Base64字符串
+	 * @param base64Str
+	 * @param key
+	 * @return
+	 * @throws BadPaddingException 
+	 * @throws IllegalBlockSizeException 
+	 */
+	public static String decryptBase64(String base64Str, String key) throws GeneralSecurityException {
+		byte[] encryptData = Base64.decodeBase64(base64Str);
+		return decryptStr(encryptData, key);
+	}
+	
+	private static Charset getCharset() {
+	    return Charset.forName("UTF-8");
+	}
+}

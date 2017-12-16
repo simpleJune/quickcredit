@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        ">
+
+	<!-- 消息中心 -->
+ 	<dubbo:consumer  id="smscenterConsumer"
+                     timeout="20000" check="false"
+                     version="${p2p.smscenter.version}"
+                     group="${p2p.smscenter.group}" />
+ 	
+	<!-- <dubbo:reference id="smsService"
+                     interface="com.free.sms.service.ISmsService"
+                     consumer="smscenterConsumer"/>
+
+	<dubbo:reference id="p2pRandomCodeService"
+                     interface="com.free.sms.service.IRandomCodeService"
+                     consumer="smscenterConsumer"/>
+                     
+    <dubbo:reference id="pushMessageService"
+                     interface="com.free.sms.service.IPushMessageService"
+                     consumer="smscenterConsumer"/>
+                     
+    <dubbo:reference id="messageService"
+                     interface="com.free.sms.service.IMessageService"
+                     consumer="smscenterConsumer"/>
+                     
+    <dubbo:reference id="messageExtService"
+                     interface="com.free.sms.service.IMessageExtService"
+                     consumer="smscenterConsumer"/>                   -->                
+	
+</beans>

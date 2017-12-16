@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.free.credit</groupId>
+  <artifactId>credit-quick-server</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0.0-SNAPSHOT</version>
+  <description>快捷支付网关服务</description>
+ 	<modules>
+        <module>credit-quick-common</module>
+        <module>credit-quick-model</module>
+        <module>credit-quick-service</module>
+        <module>credit-quick-api</module>
+    </modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jersey-sdk.version>1.1.2</jersey-sdk.version>
+        <platform.version>1.0.0-SNAPSHOT</platform.version>
+        <commons-configuration2.version>2.1.1</commons-configuration2.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.free.platform.base</groupId>
+                <artifactId>platform-base-api</artifactId>
+                <version>${platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.free.platform.base</groupId>
+                <artifactId>platform-base-common</artifactId>
+                <version>${platform.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.free.platform.base</groupId>
+                <artifactId>platform-base-service</artifactId>
+                <version>${platform.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.free.platform.base</groupId>
+                <artifactId>platform-base-container-dubbo</artifactId>
+                <version>${platform.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.free.platform.base</groupId>
+                <artifactId>platform-base-container-j2ee</artifactId>
+                <version>${platform.version}</version>
+            </dependency>
+
+            <!--动态加载配置文件-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-configuration2</artifactId>
+                <version>${commons-configuration2.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3.2</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

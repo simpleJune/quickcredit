@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<project name="dubbo-deploy" default="deploy" basedir=".">
+	<target name="deploy">
+		<property file="src/main/assemble/remote-deploy.properties" />
+
+		<echo message="部署地址: ${deploy.addr}"></echo>
+		<echo message="部署目录: ${deploy.dir}"></echo>
+
+		<sshexec verbose="true" host="${deploy.addr}" username="${deploy.user}" password="${deploy.password}" trust="true"  command="rm -fr ${deploy.dir}/* "  />
+
+		<scp file="${project.build.directory}/${war.name}.war" todir="${deploy.user}:${deploy.password}@${deploy.addr}:${deploy.dir}/" trust="true">
+		</scp>
+
+	</target>
+</project> 
